@@ -5,3 +5,7 @@ type Audio struct {
 	Description string `json:"description"`
 	URL string `json:"url"`
 }
+
+type Folder struct {
+	Audios []Audio
+}

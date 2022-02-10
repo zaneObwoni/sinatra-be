@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sinatra-be
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sinatra-be
+  template:
+    metadata:
+      labels:
+        app: sinatra-be
+    spec:
+      containers:
+        - name: sinatra-be
+          image: zanetech/sinatra-be:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: sinatra-be
+spec:
+  selector:
+    app: sinatra-be
+  ports:
+    - protocol: "TCP"
+      # Port accessible inside cluster
+      port: 8080

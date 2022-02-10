@@ -1,21 +1,24 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 	"log"
+	"os"
+	"sinatra/configs"
+	"sinatra/routes"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
 
 	//run database
 	configs.ConnectDB()
+	log.Print(os.Getenv("MONGOURI"))
 
 	router := gin.Default()
 
-	router.Run("localhost:8000")
+	//routes
+	routes.UserRoute(router)
+
+	router.Run("localhost:8080")
 }
